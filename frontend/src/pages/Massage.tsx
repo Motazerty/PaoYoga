@@ -1,14 +1,24 @@
-import React from 'react';
-import styled from 'styled-components';
 
-const Massage: React.FC = () => (
-  <Page>Massage Packs Page</Page>
-);
+import React from 'react';
+import { Box } from '@mui/material';
+import { massagePacks, videos } from '../data/packs';
+import PackCard from '../components/PackCard';
+import { useCart } from './CartPage';
+
+const Massage: React.FC = () => {
+  const { addToCart } = useCart();
+  return (
+    <div className="container">
+      <h1 className="main-title" style={{ textAlign: 'center', marginBottom: '1em' }}>
+        Packs Massage disponibles
+      </h1>
+      <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 3 }}>
+        {massagePacks.map((pack) => (
+          <PackCard key={pack.id} pack={pack} videos={videos} onBuy={addToCart} />
+        ))}
+      </Box>
+  </div>
+  );
+};
 
 export default Massage;
-
-const Page = styled.div`
-  padding: 100px 20px;
-  font-size: 24px;
-  text-align: center;
-`;

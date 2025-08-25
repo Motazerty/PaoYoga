@@ -1,14 +1,9 @@
 import React from 'react';
-import styled from 'styled-components';
+import { Box } from '@mui/material';
+import { t } from '../utils/i18n';
 
 const About: React.FC = () => (
-  <Page>About Us</Page>
+  <Box sx={{ padding: '100px 20px', fontSize: 24, textAlign: 'center' }}>{t('aboutUs')}</Box>
 );
 
 export default About;
-
-const Page = styled.div`
-  padding: 100px 20px;
-  font-size: 24px;
-  text-align: center;
-`;

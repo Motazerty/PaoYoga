@@ -1,6 +1,16 @@
 # Yoga & Wellness Packs - React App
 
-A modern React + TypeScript project for a Yoga and Wellness platform. Users can browse and purchase yoga or makeup video packs. Includes animated cards, styled-components, routing, and authentication.
+A modern React + TypeScript project for a Yoga and Wellness platform. Users can browse and purchase yoga or makeup video packs. Includes animated cards, routing, and authentication.
+
+---
+
+## 📚 Table of Contents
+- [Features](#features)
+- [Getting Started](#getting-started-development)
+- [Build for Production](#build-for-production)
+- [Project Structure](#project-structure)
+- [Contributing](#contributing)
+- [Suggestions](#suggestions)
 
 ---
 
@@ -12,94 +22,71 @@ A modern React + TypeScript project for a Yoga and Wellness platform. Users can 
 - Responsive layout using Styled Components
 - Modular code structure (components/pages)
 - Background image, styled navbar, clean design
+- TypeScript types for data models (see `src/types/`)
+- Easy to extend with new pages and features
 
 ---
 
 ## 📦 Getting Started (Development)
 
 1. Clone or extract this project on your machine
-
 2. Open the project folder and install dependencies:
-
     npm install
-
 3. Run the development server:
-
     npm run dev
-
 4. Open your browser and go to:
-
     http://localhost:5173
+
+---
+
+## 🗂 Project Structure
+
+```
+frontend/
+  src/
+    components/   # Reusable React components
+    pages/        # Route pages
+    types/        # TypeScript types
+    utils/        # Utility functions
+    assets/       # Images and icons
+    ...
+```
 
 ---
 
 ## 🛠 Build for Production
 
 To generate a production-ready static build:
-
     npm run build
 
-The output will be in the `dist/` folder.
+---
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a new branch (`git checkout -b feature/your-feature`)
+3. Commit your changes
+4. Push to your branch and open a Pull Request
 
 ---
 
-## 🌐 Serve Production Locally
+## 💡 Suggestions for New Pages & Functionality
 
-You can preview the production build using `serve`:
+### Pages to Add
+- FAQ (Frequently Asked Questions)
+- Contact Us
+- Blog/Articles
+- Meditation Guides
+- User Dashboard (with purchase history)
+- Admin Panel (manage packs, users)
 
-1. Install it globally (if not already):
+### Functionality to Add
+- User profile editing
+- Ratings & reviews for packs
+- Search & filter packs
+- Wishlist/favorites
+- Notifications (new packs, offers)
+- Multi-language support
+- Dark mode toggle
 
-    npm install -g serve
-
-2. Serve the app:
-
-    serve -s dist
-
-Then go to http://localhost:3000
-
----
-
-## 🔧 Project Structure
-
-- `src/`
-  - `components/` — Reusable components (e.g., PackCard, Navbar)
-  - `pages/` — Page views like Login, Home, Yoga, etc.
-  - `data/` — Static pack data (yogaPacks, makeupPacks)
-  - `App.tsx` — Main router and layout
-- `public/` — Public assets
-- `vite.config.ts` — Vite config
-- `tsconfig.json` — TypeScript config
-
----
-
-## ✅ Dependencies
-
-- React + TypeScript
-- react-router-dom
-- styled-components
-- Vite
-
----
-
-## 📄 .gitignore Notes
-
-Your `.gitignore` already excludes:
-
-- node_modules
-- dist
-- IDE files
-- logs
-
-This keeps your repo clean and lightweight.
-
----
-
-## 👥 Author
-
-You — or your team
-
----
-
-## 📬 License
-
-MIT (or your preferred license)
+Feel free to contribute or request new features!

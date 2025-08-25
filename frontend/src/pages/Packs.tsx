@@ -1,10 +1,10 @@
-import PackList from '../components/Pack/PackList'
+// import PackList from '../components/Pack/PackList'
 
 export default function Packs() {
   return (
     <>
-      <h1 className="text-2xl font-bold mb-4">Nos Packs</h1>
-      <PackList />
+      <h1 className="main-title" style={{ color: 'var(--primary-color)', marginBottom: '1em', textAlign: 'center' }}>Nos Packs</h1>
+      {/* <PackList /> */}
     </>
   )
 }

@@ -1,121 +1,142 @@
-// src/pages/Login.tsx
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
+import { createUser } from '../utils/api';
+import {
+  Box,
+  Button,
+  TextField,
+  Typography,
+  Paper,
+  Divider,
+  Alert,
+  Link,
+} from '@mui/material';
+import { FaGoogle, FaFacebookF, FaApple } from 'react-icons/fa';
 
 interface LoginProps {
-  onLogin: (user: { email: string }) => void;
+  onLogin: (user: { email: string; isAdmin?: boolean }) => void;
 }
 
 export default function Login({ onLogin }: LoginProps) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [registerMode, setRegisterMode] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
   const navigate = useNavigate();
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (email === 'user@example.com' && password === 'password') {
-      onLogin({ email });
-      navigate('/');
+    setError('');
+    if (registerMode) {
+      try {
+        await createUser({ name: email, email, password });
+        alert('Compte créé ! Connectez-vous.');
+        setRegisterMode(false);
+        setEmail('');
+        setPassword('');
+      } catch (err: any) {
+        setError('Erreur lors de la création du compte');
+      }
     } else {
-      setError('Email ou mot de passe incorrect');
+      try {
+        // const result = await login(email, password);
+        // localStorage.setItem('token', result.token);
+        // onLogin({ email: result.user.email });
+  onLogin({ email: isAdmin ? "admin@site.com" : "tata@toto.com", isAdmin });
+        navigate('/');
+
+
+      } catch (err: any) {
+        setError('Email ou mot de passe incorrect');
+      }
     }
   }
 
   return (
-    <Container>
-      <LoginBox>
-        <Title>Connexion</Title>
-        <Form onSubmit={handleSubmit}>
-          <Label>Email</Label>
-          <Input
+    <Box display="flex" justifyContent="center" alignItems="center" minHeight="100vh">
+  <Paper elevation={4} sx={{ p: 4, borderRadius: 3, maxWidth: 400, width: '100%', background: 'var(--surface-color)' }}>
+        <Typography variant="h5" fontWeight={700} mb={3} sx={{ color: 'var(--primary-color)' }}>
+          {registerMode ? 'Créer un compte' : 'Connexion'}
+        </Typography>
+        <Box component="form" onSubmit={handleSubmit} display="flex" flexDirection="column" gap={2}>
+            <Box display="flex" alignItems="center" gap={1}>
+              <input type="checkbox" id="adminCheck" checked={isAdmin} onChange={e => setIsAdmin(e.target.checked)} />
+              <label htmlFor="adminCheck">Se connecter comme administrateur</label>
+            </Box>
+          <TextField
+            label="Email"
             type="email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={e => setEmail(e.target.value)}
             required
-            aria-label="Email"
+            fullWidth
+            autoFocus
           />
-          <Label>Mot de passe</Label>
-          <Input
+          <TextField
+            label="Mot de passe"
             type="password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={e => setPassword(e.target.value)}
             required
-            aria-label="Mot de passe"
+            fullWidth
           />
-          {error && <ErrorMessage>{error}</ErrorMessage>}
-          <Button type="submit">Se connecter</Button>
-        </Form>
-      </LoginBox>
-    </Container>
+          <Box textAlign="right">
+            <Link href="#" underline="hover" color="primary">
+              Mot de passe oublié ?
+            </Link>
+          </Box>
+          {error && <Alert severity="error">{error}</Alert>}
+          <Button type="submit" variant="contained" sx={{ borderRadius: 3, py: 1.5, fontWeight: 700, background: 'var(--primary-color)', color: 'var(--surface-color)', '&:hover': { background: 'var(--accent-color)', color: 'var(--text-color)' } }}>
+            {registerMode ? 'Créer le compte' : 'Se connecter'}
+          </Button>
+          <Box mt={1} textAlign="center">
+            {registerMode ? (
+              <Typography variant="body2">
+                Déjà un compte ?{' '}
+                <Link href="#" underline="hover" color="primary" onClick={() => setRegisterMode(false)}>
+                  Se connecter
+                </Link>
+              </Typography>
+            ) : (
+              <Typography variant="body2">
+                Pas de compte ?{' '}
+                <Link href="#" underline="hover" color="primary" onClick={() => setRegisterMode(true)}>
+                  Créer un compte
+                </Link>
+              </Typography>
+            )}
+          </Box>
+        </Box>
+        <Divider sx={{ my: 3 }}>ou</Divider>
+        <Box display="flex" flexDirection="column" gap={1.5}>
+          <Button
+            variant="outlined"
+            startIcon={<FaGoogle color="#ea4335" />}
+            sx={{ borderRadius: 3, textTransform: 'none', fontWeight: 600, bgcolor: 'var(--surface-color)', color: 'var(--primary-color)', borderColor: 'var(--primary-color)', '&:hover': { bgcolor: 'var(--background-color)' } }}
+            onClick={() => alert('Connexion Google fictive')}
+          >
+            Google
+          </Button>
+          <Button
+            variant="contained"
+            startIcon={<FaFacebookF />}
+            sx={{ borderRadius: 3, textTransform: 'none', fontWeight: 600, bgcolor: 'var(--accent-color)', color: 'var(--text-color)', '&:hover': { bgcolor: 'var(--primary-color)', color: 'var(--surface-color)' } }}
+            onClick={() => alert('Connexion Facebook fictive')}
+          >
+            Facebook
+          </Button>
+          <Button
+            variant="contained"
+            startIcon={<FaApple />}
+            sx={{ borderRadius: 3, textTransform: 'none', fontWeight: 600, bgcolor: 'var(--secondary-color)', color: 'var(--text-color)', '&:hover': { bgcolor: 'var(--primary-color)', color: 'var(--surface-color)' } }}
+            onClick={() => alert('Connexion Apple fictive')}
+          >
+            Apple
+          </Button>
+        </Box>
+      </Paper>
+    </Box>
   );
 }
-
-const Container = styled.div`
-  max-width: 380px;
-  margin: 120px auto;
-  padding: 30px;
-  background-color: rgba(255, 255, 255, 0.9);
-  border-radius: 12px;
-  box-shadow: 0 12px 24px rgba(0,0,0,0.15);
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-`;
-
-const LoginBox = styled.div`
-  text-align: center;
-`;
-
-const Title = styled.h2`
-  margin-bottom: 24px;
-  color: #34495e;
-`;
-
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-`;
-
-const Label = styled.label`
-  font-weight: 600;
-  color: #2c3e50;
-  text-align: left;
-`;
-
-const Input = styled.input`
-  padding: 12px 14px;
-  border-radius: 8px;
-  border: 1px solid #bbb;
-  font-size: 16px;
-
-  &:focus {
-    border-color: #82b1ff;
-    outline: none;
-    box-shadow: 0 0 5px rgba(130,177,255,0.7);
-  }
-`;
-
-const ErrorMessage = styled.div`
-  color: #d32f2f;
-  font-weight: 600;
-`;
-
-const Button = styled.button`
-  padding: 14px 0;
-  border-radius: 24px;
-  background-color: #82b1ff;
-  border: none;
-  font-weight: 700;
-  color: white;
-  cursor: pointer;
-  box-shadow: 0 5px 15px rgba(130,177,255,0.6);
-  transition: background-color 0.3s ease;
-
-  &:hover {
-    background-color: #4f8fff;
-  }
-  &:focus {
-    outline: 3px solid #4f8fff;
-  }
-`;

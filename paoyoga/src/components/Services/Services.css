@@ -1,0 +1,135 @@
+/* 🌿 Services Section Styles */
+
+.services {
+  background-color: var(--color-cream);
+  position: relative;
+}
+
+.services::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--color-sand),
+    transparent
+  );
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: var(--space-2xl);
+  margin-top: var(--space-3xl);
+}
+
+.service-card {
+  background-color: var(--color-cream-light);
+  border-radius: var(--radius-lg);
+  padding: var(--space-2xl);
+  text-align: center;
+  transition: all var(--transition-base);
+  position: relative;
+  overflow: hidden;
+}
+
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    var(--color-sage-light),
+    var(--color-sage),
+    var(--color-sage-light)
+  );
+  transform: scaleX(0);
+  transition: transform var(--transition-base);
+}
+
+.service-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lg);
+}
+
+.service-card:hover::before {
+  transform: scaleX(1);
+}
+
+.service-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto var(--space-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(
+    135deg,
+    var(--color-sage-light),
+    var(--color-sage)
+  );
+  border-radius: 50%;
+  color: var(--color-cream-light);
+}
+
+.service-icon svg {
+  width: 40px;
+  height: 40px;
+}
+
+.service-title {
+  margin-bottom: var(--space-md);
+  color: var(--color-text-primary);
+}
+
+.service-description {
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-lg);
+  line-height: 1.8;
+}
+
+.service-features {
+  text-align: left;
+  margin-bottom: var(--space-xl);
+}
+
+.service-features li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) 0;
+  color: var(--color-text-secondary);
+  font-size: var(--text-sm);
+}
+
+.service-features li::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  background-color: var(--color-sage);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.service-cta {
+  display: inline-block;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .services-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-xl);
+  }
+  
+  .service-card {
+    padding: var(--space-xl);
+  }
+}
